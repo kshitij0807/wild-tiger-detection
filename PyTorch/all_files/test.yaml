@@ -1,0 +1,29 @@
+
+---
+ experiment:
+   name: tiger_detector_exp21
+   folder: #folder to search the model 
+ phase: test
+ save_folder: eval
+#
+ data:
+     - name: tigerss
+       ann_path: #path for the ground truth labels
+       
+       img_path: #path for the test images dataset
+#
+ model:
+     load_weights: False
+     weights_path: #path for the model to load(.h5)
+     pretrain_weights:  #path to pretrained weights if any
+     num_classes: 2
+     img_size: 224
+     feature_maps: 6
+     name: retina_net
+     backbone: mobilenet
+     encoder_depth: 50
+     pretrained: True
+     visual_thr: 0.05
+     filter_thr: 0.01
+     filepath: #path of the model to load(.h5)
+#

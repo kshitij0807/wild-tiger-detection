@@ -1,0 +1,55 @@
+---
+experiment:
+  name: tiger_detector_exp21
+  folder:  #path to save the model
+  # folder: /kaggle/working/detection_exp4_shufflenetwd2
+phase: train
+task: detect
+
+train:
+    ann_path:  #path to train annotations (.json)
+    # ann_path: /kaggle/working/AmurTigerCVWC2/train.json
+    img_path:  #path to train image dataset
+    # img_path: /kaggle/working/AmurTigerCVWC2/trainval
+    img_size: 224
+    transform: strong
+val:
+    ann_path:  #path to val annotations (.json)
+    # ann_path: /kaggle/working/AmurTigerCVWC2/val.json
+    # img_path: /kaggle/working/AmurTigerCVWC2/trainval
+    img_path:  #path to val image dataset
+    img_size: 224
+    transform: weak
+
+model:
+    load_weights: False
+    weights_path:  #path to load saved model
+   #pretrain_weights: C:\Users\KSHITIJ\Desktop\CLF\University related\Final Year Project\OriginalResearchCode\AmurTigerCVWC\mobilenet_v2.pth.tar
+    num_classes: 2
+    img_size: 224
+    feature_maps: 6
+    name: retina_net 
+    backbone: mobilenet
+    encoder_depth: 50
+    pretrained: True
+    visual_thr: 0.25
+
+    loss:
+        name: multibox_loss
+        localization_loss: l1_smooth_loss
+        confidence_loss: cross_entropy_loss
+
+optimizer:
+  name: adam
+  lr: 0.001
+
+scheduler:
+  name: plateau
+  mode: max
+  patience: 5
+  factor: 0.5
+  min_lr: 0.000001
+
+batch_size: 32
+num_epochs: 250
+early_stopping: 20
